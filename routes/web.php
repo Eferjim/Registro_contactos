@@ -33,6 +33,8 @@ Route::get('search', [ContactoController::class, 'search'])->name('contactos.sea
 
 Route::get('contacto/{id}', [ContactoController::class, 'show'])->name('contacto.show');
 Route::get('contacto/{id}/editar', [ContactoController::class, 'editar'])->name('contacto.editar');
+Route::put('contacto/{id}', [ContactoController::class, 'update'])->name('contacto.update');
+Route::delete('contacto/{id}', [ContactoController::class, 'destroy'])->name('contacto.destroy');
 
 
 Route::get('/crearEmpresa', [EmpresaController::class, 'crearEmpresa'])->name('empresa.crearEmpresa');

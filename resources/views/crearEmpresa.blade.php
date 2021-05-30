@@ -4,27 +4,38 @@
 
 @section('content')
 
-<form action="{{route('empresas.store')}}" method="POST">
+<div class="container">
 
-    @csrf
+    <form action="{{route('empresas.store')}}" method="POST">
 
-    <label>Nombre de la empresa:</label>   
-    <input type="text" name="nombreEmpresa"><br><br>
+        @csrf
 
-    <label>Persona de contacto:</label>   
-    <input type="text" name="personaContacto"><br><br>
+        
 
-    <label>Correo electrónico:</label>   
-    <input type="email" name="emailEmpresa"><br><br>
+            <label class="input-label">Nombre de la empresa:</label>   
+            <input class="form-control" type="text" name="nombreEmpresa"><br><br>
 
-    <label>Teléfono:</label>   
-    <input type="number" name="telefonoEmpresa"><br><br>
+            <label class="input-label">Persona de contacto:</label>   
+            <input class="form-control" type="text" name="personaContacto"><br><br>
 
-    <p>
-        <button type="submit">Crear empresa</button>
-    </p>
-</form>
+            <div class="row">
+                <div class="col-6">
+                    <label class="input-label">Correo electrónico:</label>   
+                    <input class="form-control" type="email" name="emailEmpresa"><br><br>
+                </div>
+                <div class="col-6">
+                <label class="input-label">Teléfono:</label>   
+                <input class="form-control" type="number" name="telefonoEmpresa"><br><br>
+                </div>
+            </div>
 
-<a href="{{route('contacto')}}">Atrás</a>
+            <p>
+                <button type="submit">Crear empresa</button>
+            </p>
+    </form>
+
+        <a href="{{route('contacto')}}">Atrás</a>
+    
+</div>
 
 @endsection

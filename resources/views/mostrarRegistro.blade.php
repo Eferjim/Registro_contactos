@@ -19,5 +19,14 @@
         <li>{{$contacto->descripcion}}</li>
     </ul>
 
+    <td><a href="{{route('contacto.editar', $contacto->id)}}">Editar</a></td>
+
+    <td><form action="{{route('contacto.destroy', $contacto->id)}}" method="POST">
+        @csrf
+        @method('delete')
+        <button type="submit">Eliminar</button>
+
+    </form></td>
+
 </body>
 </html>

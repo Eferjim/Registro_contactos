@@ -5,92 +5,159 @@
 
 @section('content')
 
-<h1>Esta página es para actualizar el contacto</h1>
+<div class="container">
+    <form action="{{route('contacto.update', $contacto->id)}}" method="POST"> 
 
-<form action="{{route('contactos.store')}}" method="POST"> 
+        @csrf
 
-    @csrf
+        @method('put')
 
-    <label for="empresa">Nombre de la Empresa:</label>
+        <div class="row">
+            <div class="col-6">
+                <h4>Información general:</h4>
+                <label class="input-label" for="empresa">Nombre de la Empresa:</label>
+                <select class="form-select" id="idEmpresa" name="idEmpresa">
+                    @foreach ($empresas as $empresa)
+                        @if ($contacto->id_empresa == $empresa->id)
+                            <option value="{{$empresa->id}}" selected>
+                                {{$empresa->nombre}}
+                            </option>  
+                        @else
+                            <option value="{{$empresa->id}}">
+                                {{$empresa->nombre}}
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
 
-    <select id="idEmpresa" name="idEmpresa">
-        @foreach ($empresas as $empresa)
-        <option value="{{$empresa->id}}">
-                {{$empresa->nombre}}
-        </option>
-        @endforeach
-    </select>
-    <br>
-    <a href="{{route('empresa.crearEmpresa')}}">¿Nueva Empresa?</a>
+            <div class="col-6">
+                <h4>Información acuerdo:</h4>
+                <p>¿Es para contratar, para prácticas o ambas?</p>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">Contratar</label>
+                    @if ($contacto->contratar)
+                        <input class="form-check-input" type="checkbox" name="contratar" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="contratar" value="1">
+                    @endif
+                </div>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">FCT</label>
+                    @if ($contacto->fct)
+                        <input class="form-check-input" type="checkbox" name="fct" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="fct" value="1">
+                    @endif
+                </div>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">Dual</label>
+                    @if ($contacto->formacion_d)
+                        <input class="form-check-input" type="checkbox" name="formacion_d" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="formacion_d" value="1">
+                    @endif
+                </div>
+            </div>
+        </div>
 
-    <p>¿Por medio de qué ha sido el contacto?</p>
-    <div class="form-group">
-    <select class="form-select" id="idMedio" name="idMedio">
-        @foreach ($medios as $medio)
-        <option value="{{$medio->id}}">
-                {{$medio->nombre}}
-        </option>
-        @endforeach
-    </select>
-    <a href="{{route('crearMedio')}}">Nuevo Medio</a>
+        <div class="row">
+            <div class="col-6">
+                <p>¿Por medio de qué ha sido el contacto?</p>
+                <div class="form-group">
+                <select class="form-select" id="idMedio" name="idMedio">
+                    @foreach ($medios as $medio)
+                        @if ($contacto->id_medio == $medio->id)
+                            <option value="{{$medio->id}}" selected>
+                                {{$medio->nombre}}
+                            </option>  
+                        @else
+                            <option value="{{$medio->id}}">
+                                {{$medio->nombre}}
+                            </option>
+                        @endif
+                    @endforeach
+                </select>
+                </div>
+            </div>
+            <div class="col-6">
+                <p>¿A qué ciclo o ciclos va dirigido?</p>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">DAM</label>
+                    @if ($contacto->dam)
+                        <input class="form-check-input" type="checkbox" name="dam" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="dam" value="1">
+                    @endif
+                </div>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">DAW</label>
+                    @if ($contacto->daw)
+                        <input class="form-check-input" type="checkbox" name="daw" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="daw" value="1">
+                    @endif
+                </div>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">ASIR</label>
+                    @if ($contacto->asir)
+                        <input class="form-check-input" type="checkbox" name="asir" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="asir" value="1">
+                    @endif
+                </div>
+                <div class="form-check form-switch">
+                    <label class="form-check-label">IFO</label>
+                    @if ($contacto->ifo)
+                        <input class="form-check-input" type="checkbox" name="ifo" value="1" checked>
+                    @else
+                        <input class="form-check-input" type="checkbox" name="ifo" value="1">
+                    @endif
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                {{-- <p>Usuario que lo registra:</p>
+                <div class="form-group">
+                    <select class="form-select selectpicker" multiple data-live-search="true" name="idUsers[]">
+                    @foreach ($users as $user)
+                    <option value="{{$user->id}}">
+                        {{$user->name}}
+                    </option>
+                    @endforeach
+                    </select>
+                </div> --}}
+            </div>
+            <div class="col-6">
+                {{-- <p>Tareas a desarrollar:</p>
+                <div class="form-group">
+                <select class="form-select" multiple data-live-search="true" name="idTareas[]">
+                    <option value="0" selected>No aplica</option> 
+                    @foreach ($tareas as $tarea)
+                    <option value="{{$tarea->id}}">
+                        {{$tarea->nombre}}
+                    </option>
+                    @endforeach
+                </select>
+                </div>
+                <a href="{{route('crearTarea')}}">Nueva Tarea</a> --}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-floating">
+                <textarea class="form-control" name="descripcion">{{$contacto->descripcion}}</textarea>
+                <label for="floatingTextarea2">Descripción:</label><br>
+            </div>  
+        </div>
 
-    <p>¿Es para contratar, para prácticas o ambas?</p>
-    <label>Contratar</label>
-    <input type="checkbox" name="contratar" value="1">
-    <label>Prácticas</label>
-    <input type="checkbox" name="practicas" value="1">
+        <br>
 
-    <p>Tipo de prácticas:</p>
-    <label>FCT</label>
-    <input type="checkbox" name="fct" value="1">
-    <label>Dual</label>
-    <input type="checkbox" name="formacion_d" value="1">
+        <button type="submit">Actualizar contacto</button>
 
-    <p>¿A qué ciclo o ciclos va dirigido?</p>
-    <label>DAM</label>
-    <input type="checkbox" name="dam" value="1">
-    <label>DAW</label>
-    <input type="checkbox" name="daw" value="1">
-    <label>ASIR</label>
-    <input type="checkbox" name="asir" value="1">
-    <label>IFO</label>
-    <input type="checkbox" name="ifo" value="1">
+        </form>
 
-    <p>Tareas a desarrollar:</p>
-    <div class="form-group">
-    <select class="form-select" multiple data-live-search="true" name="idTareas[]">
-        <option value="0" selected>No aplica</option> 
-        @foreach ($tareas as $tarea)
-        <option value="{{$tarea->id}}">
-            {{$tarea->nombre}}
-        </option>
-        @endforeach
-    </select>
-    </div>
-    <a href="{{route('crearTarea')}}">Nueva Tarea</a>
+        <a href="{{route('contacto')}}">Atrás</a>
 
-    <br>
-
-    <p>Usuario que lo registra:</p>
-    <select class="selectpicker" multiple data-live-search="true" name="idUsers[]">
-        @foreach ($users as $user)
-        <option value="{{$user->id}}">
-            {{$user->name}}
-        </option>
-        @endforeach
-    </select>
-
-    <br>
-
-    <label>Descripción:</label><br>
-    <textarea name="descripcion"></textarea>
-
-    <br>
-
-    <button type="submit">Actualizar contacto</button>
-
-</form>
-
-<a href="{{route('contacto')}}">Atrás</a>
-
+</div>
 @endsection

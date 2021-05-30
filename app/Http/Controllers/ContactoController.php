@@ -113,13 +113,44 @@ class ContactoController extends Controller
 
     public function editar($id){
 
-        $empresas = Empresa::find($id);
-        $tareas = Tarea::find($id);
-        $users = User::find($id);
-        $medios = Medio::find($id);
+        $empresas = Empresa::all(['id', 'nombre']);
+        $tareas = Tarea::all(['id','nombre']);
+        $users = User::all('id','name',);
+        $medios = Medio::all('id','nombre');
         
+        $contacto = Contacto::with(['empresa', 'tareas', 'medio', 'users'])->find($id);
+        return view('editarRegistro', compact('contacto','empresas', 'tareas', 'users', 'medios'));
+
+    }
+
+    public function update(Request $request, $id){
+
         $contacto = Contacto::find($id);
-        return view('editarRegistro', compact('empresas', 'tareas', 'users', 'medios'));
+
+        $contacto->id_empresa = $request->idEmpresa;
+        $contacto->id_medio = $request->idMedio;
+        $contacto->contratar = $request->has('contratar');
+        $contacto->practicas = $request->has('practicas');
+        $contacto->fct = $request->has('fct');
+        $contacto->formacion_d = $request->has('formacion_d');
+        $contacto->dam = $request->has('dam');
+        $contacto->daw = $request->has('daw');
+        $contacto->asir = $request->has('asir');
+        $contacto->ifo = $request->has('ifo');
+        $contacto->descripcion = $request->descripcion;
+
+        $contacto->save();
+
+        return redirect()->route('contacto');
+
+    }
+
+    public function destroy($id){
+
+        $contacto = Contacto::find($id);
+        $contacto->delete();
+
+        return redirect()->route('contacto');
 
     }
 
