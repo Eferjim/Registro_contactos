@@ -23,4 +23,11 @@ class TareaController extends Controller
 
     }
 
+    public function show(){
+
+        $tareas = Tarea::paginate(7);
+        return view('tareasRegistradas', compact('tareas'));
+
+    }
+
 }

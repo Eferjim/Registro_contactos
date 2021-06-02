@@ -8,6 +8,16 @@
 
     <title>@yield('title')</title>
 
+    <style>
+
+        .container_form{
+
+            margin-right: 20em;
+            margin-left: 20em;
+
+        }
+
+    </style>
 </head>
 
 <body>

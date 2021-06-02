@@ -31,7 +31,7 @@ Route::get('/mostrarContacto/crearContacto', [ContactoController::class, 'crearC
 Route::post('contactos', [ContactoController::class, 'store'])->name('contactos.store');
 Route::get('search', [ContactoController::class, 'search'])->name('contactos.search');
 
-Route::get('contacto/{id}', [ContactoController::class, 'show'])->name('contacto.show');
+// Route::get('contacto/{id}', [ContactoController::class, 'show'])->name('contacto.show');
 Route::get('contacto/{id}/editar', [ContactoController::class, 'editar'])->name('contacto.editar');
 Route::put('contacto/{id}', [ContactoController::class, 'update'])->name('contacto.update');
 Route::delete('contacto/{id}', [ContactoController::class, 'destroy'])->name('contacto.destroy');
@@ -39,15 +39,19 @@ Route::delete('contacto/{id}', [ContactoController::class, 'destroy'])->name('co
 
 Route::get('/crearEmpresa', [EmpresaController::class, 'crearEmpresa'])->name('empresa.crearEmpresa');
 Route::post('empresas', [EmpresaController::class, 'store'])->name('empresas.store');
+Route::get('/mostrarContacto/empresaRegistrada', [EmpresaController::class, 'show'])->name('empresas.show');
+Route::get('searchEmpresa', [EmpresaController::class, 'search'])->name('empresas.search');
 
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('user', [UserController::class, 'authenticate'])->name('user.authenticate');
+Route::get('/mostrarContacto/mostrarUsuario', [UserController::class, 'show'])->name('user.show');
 
 Route::get('/crearMedio', [MedioController::class, 'create'])->name('crearMedio');
 Route::post('medios', [MedioController::class, 'store'])->name('medios.store');
 
 Route::get('/crearTarea', [TareaController::class, 'create'])->name('crearTarea');
 Route::post('tareas', [TareaController::class, 'store'])->name('tareas.store');
+Route::get('/mostrarContacto/mostrarTareas', [TareaController::class, 'show'])->name('tareas.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

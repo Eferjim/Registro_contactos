@@ -26,4 +26,22 @@ class EmpresaController extends Controller
         return redirect()->route('contacto');
         
     }
+
+    public function show(){
+
+        $empresas = Empresa::paginate(5);
+        return view('empresasRegistradas', compact('empresas'));
+
+    }
+
+    public function search(Request $request){ 
+        //Función para añadir filtros por texto a Empresas
+        $empresas = Empresa::whereHas('empresa', function($q) use ( $request )
+             {
+                 $q->where('nombre', 'like', "%".$request->nombre."%");
+             });
+             $empresas = $empresas->orderBy('created_at', 'desc')->paginate(5); 
+             return view('empresasRegistradas',compact('empresas'));
+    }
+
 }

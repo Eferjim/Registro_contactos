@@ -19,13 +19,16 @@ class ContactoController extends Controller
         $tareas = Tarea::all(['id','nombre']);
         $users = User::all('id','name',);
         $medios = Medio::all('id','nombre');
-        return view('crearContacto', compact('empresas', 'tareas', 'users', 'medios'));
+        return view('crearContacto', compact('empresas', 'tareas', 'users', 'medios'))
+        ->with('success','¡Contacto creado correctamente!');
 
     }
 
     public function mostrarContacto(Request $request){
 
-        $contactos = Contacto::with(['empresa', 'tareas', 'medio', 'users'])->paginate(5);
+        $contactos = Contacto::with(['empresa', 'tareas', 'medio', 'users'])
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
         // $contactos = Contacto::with(['empresa', 'tareas', 'medio', 'users'])->paginate(10);
 
         return view('mostrarContacto',compact('contactos'));
@@ -71,7 +74,7 @@ class ContactoController extends Controller
         if($request->has('ifo'))
             $contactos = $contactos->where('ifo', '=', 1);
 
-        $contactos = $contactos->paginate(5);
+        $contactos = $contactos->orderBy('created_at', 'desc')->paginate(5);
 
         return view('mostrarContacto',compact('contactos'));
     }
@@ -104,12 +107,12 @@ class ContactoController extends Controller
         
     } 
 
-    public function show($id){
+    // public function show($id){
 
-        $contacto = Contacto::find($id);
-        return view('mostrarRegistro', compact('contacto'));
+    //     $contacto = Contacto::find($id);
+    //     return view('mostrarRegistro', compact('contacto'));
 
-    }
+    // }
 
     public function editar($id){
 
@@ -150,7 +153,7 @@ class ContactoController extends Controller
         $contacto = Contacto::find($id);
         $contacto->delete();
 
-        return redirect()->route('contacto');
+        return redirect()->route('contacto')->with('success', '¡El registro ha sido eliminado con éxito!');
 
     }
 

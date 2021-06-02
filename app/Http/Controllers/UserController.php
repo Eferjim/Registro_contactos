@@ -42,4 +42,11 @@ class UserController extends Controller
         }
 
     }
+
+    public function show(){
+
+        $usuarios = User::paginate(7);
+        return view('mostrarUsuarios', compact('usuarios'));
+
+    }
 }

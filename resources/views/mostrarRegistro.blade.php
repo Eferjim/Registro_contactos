@@ -1,14 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.plantilla')
+
+@section('title','Contactos')
+
+
+@section('content')
+
+<div class="container">
 
     <h2>Registro de contacto con la empresa: {{$contacto->empresa->nombre}}</h2>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">An item</li>
+        <li class="list-group-item">A second item</li>
+        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">A fourth item</li>
+        <li class="list-group-item">And a fifth one</li>
+      </ul>
 
     
     <ul>
@@ -28,5 +35,6 @@
 
     </form></td>
 
-</body>
-</html>
+</div>
+
+@endsection

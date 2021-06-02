@@ -1,26 +1,31 @@
-@extends('layouts.plantilla_login')
+@extends('layouts.plantilla_form')
 
-@section('title','Iniciar sesión')
+@section('title','Contactos')
+
 
 @section('content')
 
-<body class="text-center"> 
-<main class="form-signin">
-<form method="POST" action="{{ route('tareas.store') }}">
+<div class="container_form">
 
-    @csrf
+    <h3>Nueva Tarea</h3>
+    <form method="POST" action="{{ route('tareas.store') }}">
 
-    <h1 class="h3 mb-3 fw-normal">Nueva Tarea</h1>
+        @csrf
+        
+        <div class="form-floating">
+        <label></label>   
+        <input class="form-control" id= "nombreTarea" type="text" name="nombreTarea">
+        </div>
+
+        <br>
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-auto">
+            <button type="submit" class="btn btn-lg btn-primary">Nueva Tarea</button>
+            <a href="{{route('contacto')}}" class="btn btn-secondary btn-lg" tabindex="-1" role="button">Cancelar</a>
+        </div>
     
-    <div class="form-floating">
-    <label></label>   
-    <input class="form-control" id= "nombreTarea" type="text" name="nombreTarea">
-    </div>
-    
-    <input class="w-100 btn btn-lg btn-primary" type="submit" value="Enviar">
-    
- 
-</form>
-</main>
-</body>
+    </form>
+
+</div>
+
 @endsection

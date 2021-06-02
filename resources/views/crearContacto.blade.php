@@ -56,7 +56,7 @@
                     </option>
                     @endforeach
                 </select>
-                <a href="{{route('crearMedio')}}">Nuevo Medio</a>
+                <a href="{{route('crearMedio')}}">¿Nuevo Medio?</a>
                 </div>
             </div>
 
@@ -109,7 +109,7 @@
                         @endforeach
                     </select>
                 </div>
-                <a href="{{route('crearTarea')}}">Nueva Tarea</a>
+                <a href="{{route('crearTarea')}}">¿Nueva Tarea?</a>
             </div>
             
         </div>
@@ -119,11 +119,14 @@
                 <label for="floatingTextarea2">Descripción del nuevo contacto con la empresa...</label>
             </div>
         </div>
+
+        <br>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-auto">
+                <button type="submit" class="btn btn-lg btn-primary">Nuevo contacto</button>
+                <a href="{{route('contacto')}}" class="btn btn-secondary btn-lg" tabindex="-1" role="button">Cancelar</a>
+            </div>
         
-        <button type="submit">Crear contacto</button>
-  
 </form>
-<a href="{{route('contacto')}}">Atrás</a>
 
 </div>  
 @endsection
