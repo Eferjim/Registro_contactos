@@ -31,22 +31,36 @@ class UserController extends Controller
         $request->validate([
 
             'email' => 'required',
-            'password' => 'required|password'
+            'password' => 'required'
 
         ]);
 
         $userfound = User::all()->where('email', '=', $request->email)->first();
 
+        if($userfound === null)
+            return redirect()->intended('login')->with('error', 'El usuario no existe');
+
         if($userfound->password == $request->password){
             return redirect()->intended('mostrarContacto');
+        }
+        else{
+            return redirect()->intended('login')->with('error', 'Error en el login');
         }
 
     }
 
     public function show(){
 
-        $usuarios = User::paginate(7);
+        $usuarios = User::orderBy('name', 'asc')->paginate(7);
         return view('mostrarUsuarios', compact('usuarios'));
 
+    }
+
+    public function search(Request $request){ 
+        //Función para añadir filtros por nombres de usuarios
+        $usuarios = User::where('name', 'like', "%".$request->nombreUsuario."%");
+
+        $usuarios = $usuarios->orderBy('name', 'asc')->paginate(5); 
+        return view('mostrarUsuarios',compact('usuarios'));
     }
 }

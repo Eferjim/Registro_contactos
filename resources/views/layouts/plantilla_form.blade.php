@@ -10,6 +10,15 @@
 
     <style>
 
+        header{
+          background-color: #08acb4
+        }
+
+        .custom-nav{
+            color: white !important;
+            font-size: 120%;
+          }
+
         .container_form{
 
             margin-right: 20em;
@@ -17,36 +26,65 @@
 
         }
 
+        .search {
+          display: flex;
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-evenly;
+          align-items: center;
+          margin-bottom: 1%;
+        }
+
+        .check-boxes{
+          display: flex;
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-evenly;
+          align-items: center;
+        }
+
+        .search-tarea{
+          display: flex;
+          flex-direction: row;
+          width: 50%;
+        }
+
+        .input-search-tarea{
+          margin-left: 3%;
+        }
+
     </style>
 </head>
 
 <body>
   <div class="container">
-    <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap justify-content-center border-bottom"  style="text-align: center;">
       <a href="{{route('contacto')}}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-4">Registro de Empresas Colaboradoras</span>
+        <span class="fs-4"><img src="https://i.ibb.co/X8cKgMC/LOGO.png" alt="LOGO"></a></span>
       </a>
+      <div class="container d-flex flex-wrap justify-content-center py-3 bottom-border">
 
-      <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{{route('contacto')}}" class="nav-link" aria-current="page">Home</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Empresas</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{{route('empresas.show')}}">Ver</a></li>
-              <li><a class="dropdown-item" href="{{route('empresa.crearEmpresa')}}">Crear nueva</a></li>
-            </ul>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Tareas</a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{{route('tareas.show')}}">Ver</a></li>
-              <li><a class="dropdown-item" href="{{route('crearTarea')}}">Crear nueva</a></li>
-            </ul>
-        </li>
-        <li class="nav-item"><a href="{{route('user.show')}}" class="nav-link">Usuarios</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Sign out</a></li>
-      </ul>
+        <ul class="nav nav-pills">
+          <li class="nav-item"><a href="{{route('contacto')}}" class="nav-link custom-nav" aria-current="page">Home</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle custom-nav" href="#" data-bs-toggle="dropdown">Empresas</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{route('empresas.show')}}">Ver</a></li>
+                <li><a class="dropdown-item" href="{{route('empresa.crearEmpresa')}}">Crear nueva</a></li>
+              </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle custom-nav" href="#" data-bs-toggle="dropdown">Tareas</a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="{{route('tareas.show')}}">Ver</a></li>
+                <li><a class="dropdown-item" href="{{route('crearTarea')}}">Crear nueva</a></li>
+              </ul>
+          </li>
+          <li class="nav-item"><a href="{{route('user.show')}}" class="nav-link custom-nav">Usuarios</a></li>
+          <li class="nav-item"><a href="#" class="nav-link custom-nav">Sign out</a></li>
+        </ul>
+      </div>
     </header>
   </div>
 

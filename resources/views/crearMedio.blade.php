@@ -17,7 +17,7 @@
     <input class="form-control" id= "nombreMedio" type="text" name="nombreMedio">
     </div>
     
-    <input class="w-100 btn btn-lg btn-primary" type="submit" value="Enviar">
+    <input class="w-100 btn btn-lg btn-primary" style="background-color: #08acb4" type="submit" value="Enviar">
     
  
 </form>

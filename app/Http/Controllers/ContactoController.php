@@ -82,6 +82,12 @@ class ContactoController extends Controller
 
     public function store(Request $request){
 
+        $request->validate([
+
+            'idUsers' => 'required',
+
+            ]);
+
         $contacto = new contacto();
         $contacto->id_empresa = $request->idEmpresa;
         $contacto->id_medio = $request->idMedio;
@@ -97,12 +103,9 @@ class ContactoController extends Controller
 
         $contacto->save();
 
-        $tarea = Tarea::whereIn('id', $request->idTareas)->get();
-        $user = User::whereIn('id', $request->idUsers)->get();
-
-        if($tarea != null)
-            $contacto->tareas()->saveMany($tarea);
-        $contacto->users()->saveMany($user);
+        if($request->idTareas != null)
+            $contacto->tareas()->attach($request->idTareas);
+        $contacto->users()->attach($request->idUsers);
         return redirect()->route('contacto');
         
     } 
@@ -128,7 +131,13 @@ class ContactoController extends Controller
 
     public function update(Request $request, $id){
 
-        $contacto = Contacto::find($id);
+        // $request->validate([
+
+        //     'idUsers' => 'required',
+
+        //     ]);
+
+        $contacto = Contacto::with(['tareas', 'users'])->find($id);
 
         $contacto->id_empresa = $request->idEmpresa;
         $contacto->id_medio = $request->idMedio;
@@ -141,6 +150,49 @@ class ContactoController extends Controller
         $contacto->asir = $request->has('asir');
         $contacto->ifo = $request->has('ifo');
         $contacto->descripcion = $request->descripcion;
+
+        $tareas = Tarea::whereIn('id', $request->idTareas)->get();
+        $usuarios = User::whereIn('id', $request->idUsers)->get();
+
+        $nuevasTareas = [];
+        foreach ($tareas as $tarea) {
+            if(!$contacto->tareas->contains($tarea)){
+                array_push($nuevasTareas, $tarea->id);
+            }
+        }
+
+        $tareasBorradas = [];
+        foreach($contacto->tareas as $tarea){
+            if(!$tareas->contains($tarea)){
+                array_push($tareasBorradas, $tarea->id);
+            }
+        }
+
+        $nuevosUsuarios = [];
+        foreach ($usuarios as $user) {
+            if(!$contacto->users->contains($user)){
+                array_push($nuevosUsuarios, $user->id);
+            }
+        }
+
+        $usuariosBorrados = [];
+        foreach($contacto->users as $user){
+            if(!$usuarios->contains($user)){
+                array_push($usuariosBorrados, $user->id);
+            }
+        }
+
+        if($nuevasTareas !== null)
+            $contacto->tareas()->attach($nuevasTareas);
+            
+        if($nuevosUsuarios !== null)
+            $contacto->users()->attach($nuevosUsuarios);
+
+        if($usuariosBorrados !== null)
+            $contacto->users()->detach($usuariosBorrados);
+
+        if($tareasBorradas !== null)
+            $contacto->tareas()->detach($tareasBorradas);
 
         $contacto->save();
 

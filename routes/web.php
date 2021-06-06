@@ -26,32 +26,39 @@ Route::get('/', function () {
 
 //CONTACTO
 Route::get('/mostrarContacto', [ContactoController::class, 'mostrarContacto'])->name('contacto');
-
 Route::get('/mostrarContacto/crearContacto', [ContactoController::class, 'crearContacto'])->name('contacto.crearContacto');
 Route::post('contactos', [ContactoController::class, 'store'])->name('contactos.store');
 Route::get('search', [ContactoController::class, 'search'])->name('contactos.search');
-
 // Route::get('contacto/{id}', [ContactoController::class, 'show'])->name('contacto.show');
 Route::get('contacto/{id}/editar', [ContactoController::class, 'editar'])->name('contacto.editar');
 Route::put('contacto/{id}', [ContactoController::class, 'update'])->name('contacto.update');
 Route::delete('contacto/{id}', [ContactoController::class, 'destroy'])->name('contacto.destroy');
 
-
+//EMPRESA
 Route::get('/crearEmpresa', [EmpresaController::class, 'crearEmpresa'])->name('empresa.crearEmpresa');
 Route::post('empresas', [EmpresaController::class, 'store'])->name('empresas.store');
 Route::get('/mostrarContacto/empresaRegistrada', [EmpresaController::class, 'show'])->name('empresas.show');
 Route::get('searchEmpresa', [EmpresaController::class, 'search'])->name('empresas.search');
+Route::get('empresa/{id}/editar', [EmpresaController::class, 'editar'])->name('empresa.editar');
+Route::put('empresa/{id}', [EmpresaController::class, 'update'])->name('empresas.update');
 
+//USER
 Route::get('/login', [UserController::class, 'login'])->name('login');
 Route::post('user', [UserController::class, 'authenticate'])->name('user.authenticate');
 Route::get('/mostrarContacto/mostrarUsuario', [UserController::class, 'show'])->name('user.show');
+Route::get('searchUser', [UserController::class, 'search'])->name('usuarios.search');
 
+//MEDIO
 Route::get('/crearMedio', [MedioController::class, 'create'])->name('crearMedio');
 Route::post('medios', [MedioController::class, 'store'])->name('medios.store');
 
+//TAREA
 Route::get('/crearTarea', [TareaController::class, 'create'])->name('crearTarea');
 Route::post('tareas', [TareaController::class, 'store'])->name('tareas.store');
 Route::get('/mostrarContacto/mostrarTareas', [TareaController::class, 'show'])->name('tareas.show');
+Route::get('searchTarea', [TareaController::class, 'search'])->name('tareas.search');
+Route::get('tarea/{id}/editar', [TareaController::class, 'editar'])->name('tareas.editar');
+Route::put('tarea/{id}', [TareaController::class, 'update'])->name('tareas.update');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

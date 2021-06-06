@@ -4,7 +4,7 @@
 
 
 @section('content')
-
+<br>
 <div class="container">
 
     <form class="form-control" action="{{route('contactos.store')}}" method="POST"> 
@@ -95,6 +95,11 @@
                     @endforeach
                     </select>
                 </div>
+                @error('idUsers')
+                <small style="color: red">*{{$message}}</small>
+                @enderror
+
+            <br>
             </div>
 
             <div class="col-6">
@@ -111,6 +116,8 @@
                 </div>
                 <a href="{{route('crearTarea')}}">¿Nueva Tarea?</a>
             </div>
+
+            <br><br>
             
         </div>
         <div class="row">
@@ -122,11 +129,11 @@
 
         <br>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-auto">
-                <button type="submit" class="btn btn-lg btn-primary">Nuevo contacto</button>
-                <a href="{{route('contacto')}}" class="btn btn-secondary btn-lg" tabindex="-1" role="button">Cancelar</a>
+                <button type="submit" class="btn btn-primary" style="background-color: #08acb4">Nuevo contacto</button>
+                <a href="{{route('contacto')}}" class="btn btn-secondary" tabindex="-1" role="button">Cancelar</a>
             </div>
         
 </form>
-
+<br>
 </div>  
 @endsection

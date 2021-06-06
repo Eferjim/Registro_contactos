@@ -4,9 +4,9 @@
 
 
 @section('content')
-
+<br>
 <div class="container">
-    <form action="{{route('contacto.update', $contacto->id)}}" method="POST"> 
+    <form class="form-control" action="{{route('contacto.update', $contacto->id)}}" method="POST"> 
 
         @csrf
 
@@ -118,30 +118,42 @@
         </div>
         <div class="row">
             <div class="col-6">
-                {{-- <p>Usuario que lo registra:</p>
+                 <p>Usuario que lo registra:</p>
                 <div class="form-group">
                     <select class="form-select selectpicker" multiple data-live-search="true" name="idUsers[]">
                     @foreach ($users as $user)
-                    <option value="{{$user->id}}">
-                        {{$user->name}}
-                    </option>
+                        @if ($contacto->users->contains($user))
+                            <option value="{{$user->id}}" selected>
+                                {{$user->name}}
+                            </option>    
+                        @else
+                            <option value="{{$user->id}}">
+                                {{$user->name}}
+                            </option>
+                        @endif
                     @endforeach
                     </select>
-                </div> --}}
+                </div> 
             </div>
             <div class="col-6">
-                {{-- <p>Tareas a desarrollar:</p>
+                <p>Tareas a desarrollar:</p>
                 <div class="form-group">
                 <select class="form-select" multiple data-live-search="true" name="idTareas[]">
                     <option value="0" selected>No aplica</option> 
                     @foreach ($tareas as $tarea)
-                    <option value="{{$tarea->id}}">
-                        {{$tarea->nombre}}
-                    </option>
+                        @if ($contacto->tareas->contains($tarea))
+                            <option value="{{$tarea->id}}" selected>
+                                {{$tarea->nombre}}
+                            </option>     
+                        @else
+                            <option value="{{$tarea->id}}">
+                                {{$tarea->nombre}}
+                            </option> 
+                        @endif
                     @endforeach
                 </select>
                 </div>
-                <a href="{{route('crearTarea')}}">Nueva Tarea</a> --}}
+                <a href="{{route('crearTarea')}}">Nueva Tarea</a>
             </div>
         </div>
         <div class="row">
@@ -151,13 +163,13 @@
             </div>  
         </div>
 
-        <br>
-
-        <button type="submit">Actualizar contacto</button>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end mx-auto">
+                <button type="submit" class="btn btn-lg btn-primary">Actualizar</button>
+                <a href="{{route('contacto')}}" class="btn btn-secondary btn-lg" tabindex="-1" role="button">Cancelar</a>
+            </div>
 
         </form>
 
-        <a href="{{route('contacto')}}">Atrás</a>
-
+<br>
 </div>
 @endsection
